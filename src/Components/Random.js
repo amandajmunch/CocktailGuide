@@ -26,7 +26,7 @@ class Random extends Component {
   render(){
     return(
       <div className="random">
-        <img src={this.state.randomDrink.strDrinkThumb}/>
+        <img src={this.state.randomDrink.strDrinkThumb} alt='test'/>
         <h1>{this.state.randomDrink.strDrink}</h1>
       </div>
     );

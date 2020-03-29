@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import { useHistory } from "react-router-dom";
+
 
 class Search extends Component{
   constructor(){
     super();
     this.state = {
       search: "",
-      results: {}
+      results: null
     }
   }
 
@@ -29,18 +31,26 @@ class Search extends Component{
         })
   }
 
+
+  handleClick(){
+    useHistory.push('/results');
+  }
+
+
   render(){
     return(
-      <div className="search">
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type="text"
-            className="searchfield"
-            placeholder="Search..."
-            value={this.state.search}
-            onChange={this.handleChange.bind(this)}
-          />
-          <input type="submit" value="Submit"/>
-        </form>
+      <div className="searchPage">
+        <div className="search">
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <input type="text"
+              className="searchfield"
+              placeholder="Search..."
+              value={this.state.search}
+              onChange={this.handleChange.bind(this)}
+            />
+            <input type="submit" value="Submit" onClick={this.handleClick.bind(this)}/>
+          </form>
+        </div>
       </div>
     )
   }
