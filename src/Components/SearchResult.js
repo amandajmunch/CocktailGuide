@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 
 
 class SearchResult extends Component{
@@ -8,27 +7,24 @@ class SearchResult extends Component{
     console.log(props);
     this.state = {
       search:"",
-      results: null
+      results: props.location.state.results
     }
   }
 
- // componentDidMount(){
- //    Axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.state.search}`)
- //      .then(response=>{
- //        this.setState({
- //          results: response.data
- //        });
- //      })
- //      .catch(function(error){
- //        console.log(error);
- //      })
- //  }
+   componentWillReceiveProps(nextProps){
+     if(nextProps.location.state.results !== this.props.location.state.results){
+       this.setState({
+        results: nextProps.location.state.results
+        });
+       console.log(nextProps);
+     }
+    }
 
   renderCocktails(){
      if(this.state.results){
        return this.state.results.drinks.map((result,index)=>{
         return ([
-          <img key={index} src={result.strDrinkThumb} />,
+          <img key={index} src={result.strDrinkThumb} alt="alt"/>,
           <p key={result.idDrink}> {result.strDrink} </p>
           ]);
       });
@@ -39,6 +35,7 @@ class SearchResult extends Component{
     return (
       <div className="searchResults">
       <h1>this is a result</h1>
+      {this.renderCocktails()}
     </div>
     );
   }

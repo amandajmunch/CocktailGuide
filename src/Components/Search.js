@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import { useHistory } from "react-router-dom";
-
+import { Redirect } from 'react-router-dom';
 
 class Search extends Component{
   constructor(){
@@ -21,19 +21,26 @@ class Search extends Component{
     Axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.state.search}`)
       .then(response=>{
         this.setState({
-          //put in results in state results: response.data
           results: response.data
         })
-        console.log('response options: ', response);
-        })
-        .catch(function(error){
-          console.log(error);
-        })
+      })
+      .catch(function(error){
+        console.log(error);
+      })
   }
 
-
-  handleClick(){
-    useHistory.push('/results');
+  showResults(){
+    if(this.state.results){
+      return(
+       <Redirect to={{
+          pathname: '/results',
+          state: { results: this.state.results }
+        }}/>
+      );
+    }
+    if(this.state.results === null){
+      console.log('no results');
+    }
   }
 
 
@@ -48,9 +55,10 @@ class Search extends Component{
               value={this.state.search}
               onChange={this.handleChange.bind(this)}
             />
-            <input type="submit" value="Submit" onClick={this.handleClick.bind(this)}/>
+            <input type="submit" value="Submit"/>
           </form>
         </div>
+        {this.showResults()}
       </div>
     )
   }

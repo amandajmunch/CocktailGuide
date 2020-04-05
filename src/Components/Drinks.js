@@ -25,10 +25,10 @@ class Drinks extends Component{
           results: response.data
         })
         console.log('response options: ', response);
-        })
-        .catch(function(error){
-          console.log(error);
-        })
+      })
+      .catch(function(error){
+        console.log(error);
+      })
   }
 
   render(){
