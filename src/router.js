@@ -18,7 +18,7 @@ export default (
       <Route exact path='/recipe/:id' component={Details}/>
       <Route exact path='/beer' component={Beer}/>
       <Route exact path='/random' component={Random}/>
-      <Route exact path='/category' component={Category}/>
+      <Route exact path='/drinks' component={Category}/>
       <Footer/>
     </div>
   </BrowserRouter>
