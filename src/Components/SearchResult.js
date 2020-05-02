@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import '../App.css';
 
 
 class SearchResult extends Component{
@@ -24,8 +26,10 @@ class SearchResult extends Component{
      if(this.state.results){
        return this.state.results.drinks.map((result,index)=>{
         return ([
-          <img key={index} src={result.strDrinkThumb} alt="alt"/>,
-          <p key={result.idDrink}> {result.strDrink} </p>
+          <div className="eachCocktail">
+            <Link to={'/recipe/'+ result.idDrink} result={result}><img key={index} src={result.strDrinkThumb} alt="alt" width="200px"/></Link>
+            <Link to={'/recipe/'+ result.idDrink} result={result}><strong>{result.strDrink}</strong></Link>
+          </div>
           ]);
       });
     }
@@ -34,7 +38,6 @@ class SearchResult extends Component{
   render() {
     return (
       <div className="searchResults">
-      <h1>this is a result</h1>
       {this.renderCocktails()}
     </div>
     );

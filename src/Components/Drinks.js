@@ -1,50 +1,59 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import { Link } from 'react-router-dom';
+import '../App.css';
+
 
 class Drinks extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      search: "",
-      results: {}
+      results: null
     }
   }
 
-  // all categories https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list
+    componentDidMount(props){
+     if(this.props.results !== null){
+      // console.log('props results : ' + this.props);
+       this.setState({
+          results: this.props.results
+        });
+       // console.log('this.state.results: ' + this.state.results);
+     }
+     else{
+      console.log('empty objects');
+      console.log('here are props: ' + this.props);
+     }
+    }
 
-  handleChange(e) {
-    this.setState({search: e.target.value});
+  componentWillReceiveProps(nextProps){
+     if(nextProps.results !== this.props.results){
+       this.setState({
+        results: nextProps.results
+        });
+       console.log('next props: ' + nextProps);
+     }
+    }
+
+  renderCocktails(){
+     if(this.state.results){
+       return this.state.results.map((result,index)=>{
+        return ([
+          <div className="eachCocktail">
+            <Link to={'/recipe/'+ result.idDrink} result={result}><img key={index} src={result.strDrinkThumb} alt="alt" width="200px"/></Link>
+            <Link to={'/recipe/'+ result.idDrink} result={result}><strong>{result.strDrink}</strong></Link>
+          </div>
+          ]);
+      });
+    }
   }
 
-  handleSubmit(e){
-    e.preventDefault();
-    Axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.state.search}`)
-      .then(response=>{
-        this.setState({
-          //put in results in state results: response.data
-          results: response.data
-        })
-        console.log('response options: ', response);
-      })
-      .catch(function(error){
-        console.log(error);
-      })
-  }
-
-  render(){
-    return(
-      <div className="search">
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type="text"
-            className="searchfield"
-            placeholder="Search..."
-            value={this.state.search}
-            onChange={this.handleChange.bind(this)}
-          />
-          <input type="submit" value="Submit"/>
-        </form>
+  render() {
+    // console.log('state:'  + this.state.results);
+    return (
+      <div className="Drinks">
+        {this.renderCocktails()}
       </div>
-    )
+    );
   }
 }
 

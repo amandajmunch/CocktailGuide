@@ -6,11 +6,26 @@ class Glass extends Component{
     super();
     this.state = {
       search: "",
+      glasses: '',
       results: {}
     }
   }
 
-  // all glasses https://www.thecocktaildb.com/api/json/v1/1/list.php?g=lists
+   componentDidMount(){
+    this.getIngredients();
+  }
+
+  getIngredients(){
+    Axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list')
+      .then((response) => {
+        this.setState(() => {
+          return { glasses: response.data.drinks};
+        })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
 
   handleChange(e) {
     this.setState({search: e.target.value});
@@ -18,7 +33,7 @@ class Glass extends Component{
 
   handleSubmit(e){
     e.preventDefault();
-    Axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.state.search}`)
+    Axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${this.state.search}`)
       .then(response=>{
         this.setState({
           //put in results in state results: response.data

@@ -6,11 +6,27 @@ class Ingredients extends Component{
     super();
     this.state = {
       search: "",
+      ingredients: [],
       results: {}
     }
   }
 
-  // all ingredients https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list
+  componentDidMount(){
+    this.getIngredients();
+  }
+
+  getIngredients(){
+    Axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+      .then((response) => {
+        this.setState(() => {
+          return { ingredients: response.data.drinks};
+        })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
+
 
   handleChange(e) {
     this.setState({search: e.target.value});
@@ -18,7 +34,7 @@ class Ingredients extends Component{
 
   handleSubmit(e){
     e.preventDefault();
-    Axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.state.search}`)
+    Axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${this.state.search}`)
       .then(response=>{
         this.setState({
           //put in results in state results: response.data

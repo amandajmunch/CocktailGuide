@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { useHistory } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
 
 class Search extends Component{
@@ -39,7 +38,7 @@ class Search extends Component{
       );
     }
     if(this.state.results === null){
-      console.log('no results');
+      return;
     }
   }
 

@@ -68,3 +68,18 @@ footer a {
   color: black;
   border-bottom: 1px solid black;
 }
+
+/*------------BEER PAGE-------------*/
+
+
+.beers, .searchResults, .Drinks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.eachBeer, .eachCocktail {
+  display: flex;
+  flex-direction: column;
+  margin: 2vh;
+}

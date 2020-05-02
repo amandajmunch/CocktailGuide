@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import '../App.css';
+import { Link } from 'react-router-dom';
 
 class Beer extends Component{
   constructor(){
@@ -26,8 +28,10 @@ class Beer extends Component{
   if(this.state.results){
     return this.state.results.drinks.map((result,index)=>{
       return ([
-        <img key={index} src={result.strDrinkThumb} alt="alt" />,
-        <p key={result.idDrink}> {result.strDrink} </p>
+        <div className="eachBeer">
+          <img key={index} src={result.strDrinkThumb} alt="alt" width="200px" />
+          <Link to={'/recipe/'+ result.idDrink} result={result}><strong>{result.strDrink}</strong></Link>
+        </div>
         ]);
     });
   }
@@ -36,7 +40,6 @@ class Beer extends Component{
   render() {
     return (
       <div className="beers">
-        <h1>this is beer</h1>
         {this.renderBeers()}
       </div>
     );
