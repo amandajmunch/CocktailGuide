@@ -16,6 +16,11 @@
   flex-direction: row;
   align-items: center;
   width: 100vw;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
 }
 
 .nav ul{
@@ -69,7 +74,7 @@ footer a {
   border-bottom: 1px solid black;
 }
 
-/*------------BEER PAGE-------------*/
+/*------------RESULTS PAGE-------------*/
 
 
 .beers, .searchResults, .Drinks {
@@ -82,4 +87,49 @@ footer a {
   display: flex;
   flex-direction: column;
   margin: 2vh;
+  width: 200px;
 }
+
+.dropdowns {
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+  margin: 2vh;
+  position: fixed;
+}
+
+.dropdowns select {
+  margin-bottom: 1vh;
+}
+
+.categorySearch {
+  display: flex;
+  height: 80vh;
+}
+
+.results {
+  left: 12vw;
+  position: relative;
+}
+
+/*------------DETAILS PAGE-------------*/
+.cocktailDetails {
+  display: flex;
+}
+
+.leftCocktail {
+padding-right: 4vw;
+}
+
+.rightCocktail {
+
+}
+
+/*------------MOBILE DESIGN-------------*/
+
+@media only screen and (max-width: 600px) {
+  .nav ul {
+    flex-direction: column;
+  }
+}
+

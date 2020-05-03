@@ -13,11 +13,9 @@ class Drinks extends Component{
 
     componentDidMount(props){
      if(this.props.results !== null){
-      // console.log('props results : ' + this.props);
        this.setState({
           results: this.props.results
         });
-       // console.log('this.state.results: ' + this.state.results);
      }
      else{
       console.log('empty objects');

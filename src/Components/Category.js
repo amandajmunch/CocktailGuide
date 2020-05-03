@@ -7,8 +7,8 @@ class Category extends Component{
   constructor(){
     super();
     this.state = {
-      searchOptions: "",
-      searchValues: "",
+      searchOptions: "Categories",
+      searchValues: "Ordinary Drink",
       options: ['Categories', 'Glass', 'Ingredients', 'Alcoholic'],
       categories: [],
       results: null
@@ -20,6 +20,24 @@ class Category extends Component{
       let letter = this.state.searchOptions.charAt(0).toLowerCase();
       this.getSearchValues(letter);
     }
+  }
+
+  componentDidMount(){
+    Axios.get('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+      .then((response) => {
+        let data = response.data.drinks;
+        let categories = [];
+        data.forEach(function(item){
+          categories.push(Object.values(item));
+        })
+        categories = categories.flat();
+         this.setState(() => {
+           return { categories: categories};
+         })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 
   getSearchValues(letter){
@@ -51,14 +69,13 @@ class Category extends Component{
 
   handleSubmit(e){
     e.preventDefault();
+
     let letter = this.state.searchOptions.charAt(0).toLowerCase();
-    console.log('letter: ' + letter);
     let url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?${letter}=${this.state.searchValues}`;
-    console.log('url : ' + url);
+
     Axios.get(url)
       .then(response=>{
         this.setState({
-          //put in results in state results: response.data
           results: response.data.drinks
         })
       })
@@ -69,22 +86,24 @@ class Category extends Component{
 
   render(){
     return(
-
       <div className="categorySearch">
-       <select onChange={this.handleChangeOptions.bind(this)}>
-           {this.state.options.map((option, index) =>
-            <option value={option}>{option}</option>
-           )}
-        </select>
-        <select onChange={this.handleChangeValues.bind(this)}>
-           {this.state.categories.map((category, index) =>
-            <option value={category}>{category}</option>
-           )}
-        </select>
-        <button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</button>
-        <Drinks results={this.state.results}/>
+        <div className="dropdowns">
+         <select onChange={this.handleChangeOptions.bind(this)}>
+             {this.state.options.map((option, index) =>
+              <option value={option}>{option}</option>
+             )}
+          </select>
+          <select onChange={this.handleChangeValues.bind(this)}>
+             {this.state.categories.map((category, index) =>
+              <option value={category}>{category}</option>
+             )}
+          </select>
+          <button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</button>
+        </div>
+        <div className="results">
+          <Drinks results={this.state.results}/>
+        </div>
       </div>
-
     )
   }
 }
