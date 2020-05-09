@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 80vh;
   font-family: 'Lato';
-  overflow: scroll;
+  overflow-x: hidden;
 }
 
 
@@ -21,7 +21,7 @@
   top: 0;
   background: #fff;
   z-index: 1;
-  padding-left: 2vw;
+  padding-left: 5vw;
   align-items: center;
 }
 
@@ -88,6 +88,8 @@ footer a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  height: 80vh;
+  margin: 0px 4vw;
 }
 
 .eachBeer, .eachCocktail {
