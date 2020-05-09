@@ -74,26 +74,14 @@ class Details extends Component {
       let valueArray = [];
 
       for (let [key, value] of Object.entries(filtered)) {
-        // console.log(`${key}: ${value}`);
-
         if(key.includes('strIngredient')){
            valueArray.push(value);
-
         }
-
       }
-
-      console.log('ingredients: ' + valueArray);
-        // for(let i = 0; i < valueArray.length; i++){
-        //   console.log('each ingredients: ' + valueArray[i]);
-        //   return(<img key={i} src={'https://www.thecocktaildb.com/images/ingredients/' + valueArray[i] + '-Small.png'}/>);
-        // }
-
          let images = valueArray.map(image => {
           console.log(image);
            return <img src={'https://www.thecocktaildb.com/images/ingredients/' + image + '-Small.png'} alt="" className="img-responsive" />
         });
-
          return images;
   }
 
@@ -102,10 +90,10 @@ class Details extends Component {
     return(
     <div className="cocktailDetails">
      <div className="leftCocktail">
-      <img src={this.state.drink.strDrinkThumb} alt="src" width="400px"/>
-      <p><b>Style:</b>{this.state.drink.strCategory}</p>
-      <p>Ingredients</p>
-        {this.getImages()}
+      <img src={this.state.drink.strDrinkThumb} alt="src" width="400px" className="displayImg"/>
+      <p><b>Style: </b>{this.state.drink.strCategory}</p>
+      <p style={{textDecoration:"underline"}}>Ingredients</p>
+       <div className="ingredients"> {this.getImages()}</div>
      </div>
      <div className="rightCocktail">
       <h2>{this.state.drink.strDrink}</h2>
