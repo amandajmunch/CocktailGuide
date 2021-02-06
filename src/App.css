@@ -90,6 +90,7 @@ footer a {
   flex-wrap: wrap;
   height: 80vh;
   margin: 0px 4vw;
+  overflow: scroll;
 }
 
 .eachBeer, .eachCocktail {
